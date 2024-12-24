@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 
+const userRoutes = require('./routes/user-routes')
+
 const app = express()
 
 app.use(express.json())
@@ -12,6 +14,7 @@ app.get('/', (req, res) => {
 })
 
 // Routes
+app.use('/users', userRoutes)
 
 app.use((err, req, res, next) => {
   console.error(err.stack)
