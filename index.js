@@ -3,6 +3,8 @@ const cors = require('cors')
 
 const userRoutes = require('./routes/user-routes')
 const orgRoutes = require('./routes/org-routes')
+const projectRoutes = require('./routes/project-routes')
+const taskRoutes = require('./routes/task-routes')
 
 const app = express()
 
@@ -17,6 +19,8 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/users', userRoutes)
 app.use('/orgs', orgRoutes)
+app.use('/projects', projectRoutes)
+app.use('/tasks', taskRoutes)
 
 app.use((err, req, res, next) => {
   console.error(err.stack)

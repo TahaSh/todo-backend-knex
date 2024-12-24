@@ -4,6 +4,7 @@ const router = express.Router()
 const users = require('../db/user-queries')
 const orgs = require('../db/org-queries')
 const orgUsers = require('../db/org-users-queries')
+const projects = require('../db/project-queries')
 
 router.post(
   '/',
@@ -30,6 +31,27 @@ router.post(
       orgId: req.params.orgId,
       role: req.body.role
     })
+    res.json(result)
+  })
+)
+
+router.post(
+  '/:orgId/projects',
+  asyncHandler(async (req, res) => {
+    // validate
+    const result = await projects.create({
+      orgId: req.params.orgId,
+      name: req.body.name
+    })
+    res.json(result)
+  })
+)
+
+router.get(
+  '/:orgId/projects',
+  asyncHandler(async (req, res) => {
+    // validate
+    const result = await projects.allInOrg(req.params.orgId)
     res.json(result)
   })
 )
