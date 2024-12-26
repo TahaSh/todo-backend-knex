@@ -5,14 +5,22 @@ const users = require('../db/user-queries')
 const orgs = require('../db/org-queries')
 const orgUsers = require('../db/org-users-queries')
 const projects = require('../db/project-queries')
+const auth = require('../middlewares/auth')
 
 router.post(
   '/',
+  auth,
   asyncHandler(async (req, res) => {
     // validate
-    const result = await orgs.create({
+    const createdOrg = await orgs.create({
       name: req.body.name,
-      ownerId: req.body.owner_id
+      ownerId: req.userId
+    })
+
+    const result = await orgUsers.addUserToOrg({
+      orgId: createdOrg.id,
+      userId: req.userId,
+      role: 'admin'
     })
     res.json(result)
   })

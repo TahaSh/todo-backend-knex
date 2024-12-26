@@ -3,7 +3,8 @@ const {
   asyncHandler,
   verifyPassword,
   createAccessToken,
-  createRefreshToken
+  createRefreshToken,
+  verifyRefreshToken
 } = require('../utils')
 const router = express.Router()
 const users = require('../db/user-queries')
@@ -26,6 +27,22 @@ router.post(
       access_token: createAccessToken(user.id),
       refresh_token: createRefreshToken(user.id)
     })
+  })
+)
+
+router.post(
+  '/refresh',
+  asyncHandler(async (req, res) => {
+    const { refresh_token } = req.body
+    try {
+      const { userId } = verifyRefreshToken(refresh_token)
+      res.status(200).json({
+        access_token: createAccessToken(userId),
+        refresh_token: createRefreshToken(userId)
+      })
+    } catch (err) {
+      res.status(401).json({ message: err.message })
+    }
   })
 )
 
