@@ -7,7 +7,7 @@ exports.create = async ({ name, ownerId }) => {
   return results[0]
 }
 
-exports.all = async () => {
+exports.allForUser = async (userId) => {
   return await knex('organizations')
     .join('users', 'users.id', 'organizations.owner_id')
     .select(
@@ -16,4 +16,5 @@ exports.all = async () => {
       'users.email as userEmail',
       'users.name as userName'
     )
+    .where('owner_id', userId)
 }

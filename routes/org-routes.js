@@ -75,8 +75,9 @@ router.get(
 
 router.get(
   '/',
+  auth,
   asyncHandler(async (req, res) => {
-    const results = await orgs.all()
+    const results = await orgs.allForUser(req.userId)
     res.json(results)
   })
 )

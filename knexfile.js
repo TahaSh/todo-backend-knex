@@ -16,6 +16,18 @@ module.exports = {
     }
   },
 
+  test: {
+    client: 'postgresql',
+    connection: {
+      database: 'todos-test',
+      user: process.env.PGUSER,
+      password: process.env.PGPASSWORD
+    },
+    migrations: {
+      directory: './db/migrations'
+    }
+  },
+
   staging: {
     client: 'postgresql',
     connection: {

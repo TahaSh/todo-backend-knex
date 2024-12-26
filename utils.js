@@ -19,12 +19,12 @@ exports.verifyPassword = async (plainPassword, hashedPassword) => {
   return bcrypt.compare(plainPassword, hashedPassword)
 }
 
-exports.createAccessToken = (userId) => {
-  return jwt.sign({ userId }, accessTokenSecret)
+exports.createAccessToken = (userId, expiresIn = '1h') => {
+  return jwt.sign({ userId }, accessTokenSecret, { expiresIn })
 }
 
-exports.createRefreshToken = (userId) => {
-  return jwt.sign({ userId }, refreshTokenSecret)
+exports.createRefreshToken = (userId, expiresIn = '7d') => {
+  return jwt.sign({ userId }, refreshTokenSecret, { expiresIn })
 }
 
 exports.verifyAccessToken = (accessToken) => {
