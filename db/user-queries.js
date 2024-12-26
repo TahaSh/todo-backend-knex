@@ -9,6 +9,10 @@ exports.create = async ({ name, email, password }) => {
   return results[0]
 }
 
+exports.byEmail = async (email) => {
+  return await knex('users').where('email', email).first()
+}
+
 exports.all = async () => {
   return await knex('users')
 }
