@@ -33,5 +33,7 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists('tasks')
+  return knex.schema
+    .dropTableIfExists('tasks')
+    .raw('DROP TYPE IF EXISTS "task_status"')
 }

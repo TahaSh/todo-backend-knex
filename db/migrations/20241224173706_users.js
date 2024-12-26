@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
     table.string('name', 100).notNullable()
     table.string('email', 100).unique().notNullable()
+    table.string('password', 255).notNullable()
   })
 }
 

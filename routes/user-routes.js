@@ -9,7 +9,8 @@ router.post(
     // validate input, email is valid, name is valid, etc
     const result = await users.create({
       name: req.body.name,
-      email: req.body.email
+      email: req.body.email,
+      password: req.body.password
     })
     res.json(result)
   })
